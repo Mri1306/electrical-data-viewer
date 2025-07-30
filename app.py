@@ -7,7 +7,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 GOOGLE_SHEET_NAME = "Electrical Coating Data"
 WORKSHEET_NAMES = {
     "Anti Fog": "Anti Fog",
-    "Deep Coat": "Deep Coat",
+    "Dip Coat": "Dip Coat",  # ✅ Updated from "Deep Coat"
     "Hard Coat": "Hard Coat"
 }
 
@@ -30,8 +30,8 @@ with col1:
     if st.button("Anti Fog"):
         st.session_state.clicked_button = "Anti Fog"
 with col2:
-    if st.button("Deep Coat"):
-        st.session_state.clicked_button = "Deep Coat"
+    if st.button("Dip Coat"):  # ✅ Updated from "Deep Coat"
+        st.session_state.clicked_button = "Dip Coat"
 with col3:
     if st.button("Hard Coat"):
         st.session_state.clicked_button = "Hard Coat"
@@ -52,7 +52,7 @@ if clicked_button:
         else:
             df = pd.DataFrame(data)
 
-            # ✅ Fix: Convert all values to editable strings
+            # ✅ Convert all values to editable strings
             for col in df.columns:
                 df[col] = df[col].apply(lambda x: str(x) if pd.notna(x) else "")
 
@@ -76,4 +76,5 @@ if clicked_button:
         st.error(f"❌ Could not load data from Google Sheets: {e}")
 else:
     st.info("👆 Select a category to view and edit its data.")
+
 
